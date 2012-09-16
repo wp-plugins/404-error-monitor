@@ -1,7 +1,7 @@
 === 404-error-monitor ===
 Contributors: Bilbud
 Donate link: 
-Tags: 
+Tags: 404, not found, error monintor
 Requires at least: 3.2.1
 Tested up to: 3.4.2
 Stable tag: 1.0
