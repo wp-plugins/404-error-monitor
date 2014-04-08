@@ -118,7 +118,7 @@ class errorMonitor {
 		errorMonitor_DataTools::addPluginOption('ext_filter','');
 		errorMonitor_DataTools::addPluginOption('path_filter','/wp-admin');
 		errorMonitor_DataTools::addPluginOption('clean_after','60');
-		errorMonitor_DataTools::addPluginOption('last_clean',mktime());
+		errorMonitor_DataTools::addPluginOption('last_clean',time());
 		
 		$this->_activate($networkwide);	
 
@@ -160,10 +160,10 @@ class errorMonitor {
 	function add_admin_pages()
 	{
 		if(!errorMonitor_DataTools::getPluginOption('network-install')){
-			add_menu_page('errorMonitor', '404 Error Monitor', 'administrator', 'errorMonitor', array(&$this,'error_list_page'));
-			add_submenu_page('errorMonitor', 'Settings', 'Settings', 'administrator', 'errorMonitorSettings', array(&$this,'add_network_settings'));
+			add_menu_page('errorMonitor', '404 Error Monitor', 'manage_options', 'errorMonitor', array(&$this,'error_list_page'));
+			add_submenu_page('errorMonitor', 'Settings', 'Settings', 'manage_options', 'errorMonitorSettings', array(&$this,'add_network_settings'));
 		} else {
-			add_options_page('errorMonitor','404 Error Monitor', 'administrator', 'errorMonitor', array(&$this,'error_list_page'));
+			add_options_page('errorMonitor','404 Error Monitor', 'manage_options', 'errorMonitor', array(&$this,'error_list_page'));
 		}
 	}
 	
@@ -188,7 +188,7 @@ class errorMonitor {
 	{
 		if ( function_exists( 'is_404' ) && is_404() ){
 			$error = new errorMonitor_Error();
-			$error->add($_SERVER["REQUEST_URI"]);
+			$error->add(addslashes($_SERVER["REQUEST_URI"]));
 			$error->clean();
     	}
 	}
